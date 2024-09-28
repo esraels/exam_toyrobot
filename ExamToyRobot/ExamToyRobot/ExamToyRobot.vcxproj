@@ -127,7 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ExamToyRobot.cpp" />
+    <ClCompile Include="ConstantsData.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Geometry.cpp" />
+    <ClCompile Include="Robot.cpp" />
+    <ClCompile Include="TableTop.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ConstantsData.h" />
+    <ClInclude Include="Geometry.h" />
+    <ClInclude Include="Robot.h" />
+    <ClInclude Include="TableTop.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
