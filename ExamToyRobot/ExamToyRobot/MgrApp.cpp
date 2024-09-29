@@ -10,7 +10,8 @@
 namespace ExamToyRobot {
 
     MgrApp::MgrApp() :
-        m_bIsRunning(false)
+        m_bIsRunning(false),
+        m_bEnableLogError(true)
     {
         m_table.setSize({ 5,5 });  //default table size.
         setupCommands();
@@ -87,9 +88,14 @@ namespace ExamToyRobot {
         return Const::toStr(eDir);
     }
 
+    void MgrApp::LogError(string const& errMsg) {
+        if (m_bEnableLogError) {
+            cerr << errMsg << endl;
+        }
+    }
 
     bool MgrApp::CheckError(bool bCond, string const& errMsg) {
-        if (bCond) {
+        if (bCond && m_bEnableLogError) {
             cerr << "ERROR: " << errMsg << endl;
         }
         return bCond;

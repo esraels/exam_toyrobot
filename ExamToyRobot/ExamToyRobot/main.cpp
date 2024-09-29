@@ -29,14 +29,16 @@ namespace ExamToyRobot {
 int main()
 {
     using namespace std;
-    using namespace Tools;
     using namespace ExamToyRobot;
 
     MgrApp app;
+    app.table().setSize({5,5});
+    app.enableLogError(false);
+
     auto& commands = app.commands();
 
     bool bExit = false;
-   
+
     string sInput;
 
     //---wait for valid and successfully executed place command.
@@ -48,7 +50,7 @@ int main()
             app.Start();
             break;
         } else {
-            cerr << "FAILED: Command not executed" << endl;
+            app.LogError("FAILED: Command not executed");
         }
     }
 
@@ -60,7 +62,7 @@ int main()
         bool bSuccess = commands.execute(sInput);
 
         if (!bSuccess) {
-            cerr << "FAILED: Command not executed" << endl;
+            app.LogError("FAILED: Command not executed");
         }
         
     }

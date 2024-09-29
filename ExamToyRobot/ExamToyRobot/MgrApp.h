@@ -13,6 +13,7 @@ namespace ExamToyRobot {
 		Commands m_commands;
 
 		bool m_bIsRunning;
+		bool m_bEnableLogError;
 
 	public:
 		MgrApp();
@@ -25,12 +26,15 @@ namespace ExamToyRobot {
 		void Start() { m_bIsRunning = true; }
 		bool isRunning() { return m_bIsRunning; };
 
-	protected:
-		void setupCommands();
+		void enableLogError(bool bEnable = true) { m_bEnableLogError = bEnable; }
 
 		//---helper functions
 		const string& computeFacingInfo(Vec const& d);
+		void LogError(string const& errMsg);
 		bool CheckError(bool bCond, string const& errMsg);
+
+	protected:
+		void setupCommands();
 
 	};
 
