@@ -23,9 +23,9 @@ namespace Tools {
         this->y = -origX;
     }
 
-    bool Rect::isInside(const Vec& p) {
-        return pos.x <= p.x && p.x <= (size.x + pos.x) &&
-               pos.y <= p.y && p.y <= (size.y + pos.y);
+    bool Rect::isInside(const Vec& p) const {
+        return pos.x <= p.x && p.x < (size.x + pos.x) &&
+               pos.y <= p.y && p.y < (size.y + pos.y);
     }
 
 }//namespace...

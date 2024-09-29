@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Commands.cpp" />
     <ClCompile Include="ConstantsData.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Geometry.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="TableTop.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Commands.h" />
     <ClInclude Include="ConstantsData.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Robot.h" />

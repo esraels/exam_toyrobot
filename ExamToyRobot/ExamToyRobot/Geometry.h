@@ -23,6 +23,10 @@ namespace Tools {
         return Point(a.x + b.x, a.y + b.y);
     }
 
+    inline Point operator - (const Point& a, const Point& b) {
+        return Point(a.x - b.x, a.y - b.y);
+    }
+
     inline bool operator == (const Point& a, const Point& b) {
         return a.x == b.x && a.y == b.y;
     }
@@ -55,7 +59,7 @@ namespace Tools {
         Vec size;
 
         Rect(Vec s = Vec::ONE) :pos(Vec::ZERO), size(s) {};
-        bool isInside(const Vec&);
+        bool isInside(const Vec&) const;
 
     };
 

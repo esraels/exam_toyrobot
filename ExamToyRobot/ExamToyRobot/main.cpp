@@ -8,17 +8,21 @@
 #include <algorithm>
 #include <ctype.h>
 #include <string>
+#include <sstream>
 #include <regex>
+#include <functional>
+
 #include "Geometry.h"
 #include "Robot.h"
 #include "TableTop.h"
+#include "Commands.h"
 
 namespace ExamToyRobot {
 
     using namespace std;
 
 
-    const string& dirToStr(const Vec& d) {
+    const string& toFaceName(Vec const& d) {
         EDir eDir = EDir::INVALID;
         
         if (d == Vec::UP) {
@@ -34,83 +38,120 @@ namespace ExamToyRobot {
             eDir = EDir::WEST;
         }
 
-        return mapDirToStr[(int)eDir];
+        return Const::toStr(eDir);
     }
 
-    ostream& operator << (ostream& os, const Point& p) {
+    void toLowerStr(string& s) {
+        std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return std::tolower(c); });
+    }
+
+    ostream& operator << (ostream& os, Point const& p) {
         return os << p.x << "," << p.y;
     }
 
-    ostream& operator << (ostream& os, const Robot& r) {
+    ostream& operator << (ostream& os, Robot const& r) {
         auto& pos = r.getPos();
         auto& dir = r.getDir();
-        return os << pos << "," << dirToStr(dir);
-        //return os << pos << "," << dir << ",(" << dirToStr(dir) << ")";
+        return os << pos << "," << toFaceName(dir);
     }
 
-    ostream& operator << (ostream& os, const TableTop& table) {
+    ostream& operator << (ostream& os, TableTop const& table) {
         auto& size = table.getSize();
         return os << size.x << "x" << size.y;
     }
 
-}
+}//namespace...
 
 int main()
 {
+    using namespace std;
     using namespace Tools;
     using namespace ExamToyRobot;
 
-    string sInput;
-
+    bool bExit = false;
+    
     Robot robot;
     TableTop board({5,5});
 
-    robot.Place({ 0,0 }, Vec::UP); //???: temp code.
+    //---setup commands
+    Commands commands(R"(^\s*(\w+)\s*)");
+    commands.add(Const::toStr(ECmd::PLACE), R"((\d+)\s*,\s*(\d+)\s*,\s*(\w+)\s*)", [&](Cmd::params_t const& params) {
+        enum {
+            P_POSX,
+            P_POSY,
+            P_FACE,
+        };
+        auto eDir = Const::toEDir(params[P_FACE]);
+        if (eDir == EDir::INVALID) {
+            cerr << "ERROR: INVALID Facing value" << endl;
+            return false;
+        }
 
-    //cout << "Robot: " << robot << endl;
-    //cout << "Board: " << board << endl;
-    //cout << "Vec list:" << endl;
-    //for (auto item : mapDirToVec) {
-    //    cout << item << endl;
-    //}
+        Point pos;
+        stringstream(params[P_POSX]) >> pos.x;   //note: type independent conversion code.
+        stringstream(params[P_POSY]) >> pos.y;   //todo: implement more optimized version.
 
-    bool bExit = false;
+        if (!board.isValidPos(pos)) {
+            cerr << "ERROR: INVALID position on board." << endl;
+            return false;
+        }
 
-    while (!bExit) {
-        cin >> sInput;
+        Point dir = Const::toVec(eDir);
+        robot.Place(pos, dir);
 
-        //todo: search the first valid PLACE command.
+        return true;
+    });
+    commands.add(Const::toStr(ECmd::MOVE), [&](Cmd::params_t const& params) -> bool {
+        if (!board.isValidPos(robot.getPosAhead())) {
+            cerr << "ERROR: Move not possible." << endl;
+            return false;
+        }
+        robot.Move();
+        return true;
+    });
+    commands.add(Const::toStr(ECmd::LEFT), [&](Cmd::params_t const& params) -> bool {
+        robot.FaceLeft();
+        return true;
+    });
+    commands.add(Const::toStr(ECmd::RIGHT), [&](Cmd::params_t const& params) -> bool {
+        robot.FaceRight();
+        return true;
+    });
+    commands.add(Const::toStr(ECmd::REPORT), [&](Cmd::params_t const& params) -> bool {
+        cout << robot << endl;
+        bExit = true;
+        return true;
+    });
 
-        //todo: apply regex and tolower here.
-        //auto sKey = std::transform(sInput.begin(), sInput.end(), ::tolower);
-        auto sKey = sInput;
+    string sInput;
 
-        switch (mapKeyToCmd[sKey]) {
-            case ECmd::PLACE: 
-                
-                break;
-            case ECmd::LEFT:  
-                robot.FaceLeft();  
-                break;
-            case ECmd::RIGHT: 
-                robot.FaceRight();  
-                break;
-            case ECmd::MOVE: 
-                if (board.isValidPos( robot.getPosAhead() )) {
-                    robot.Move();
-                }
-                break;
-            case ECmd::REPORT: 
-                cout << robot << endl;
-                //bExit = true;
-                break;
-            default:
-                break;
+    //---wait for valid and successfully executed place command.
+    auto sPlaceCmd = Const::toStr(ECmd::PLACE);
+    while (true) {
+        std::getline(cin, sInput);
+        toLowerStr(sInput);
+        if (commands.executeIfName(sPlaceCmd, sInput)) {
+            break;
+        } else {
+            cerr << "FAILED: Command not executed" << endl;
         }
 
     }
 
+    //---execute incoming commands.
+    while (!bExit) {
+        std::getline(cin, sInput);
+        toLowerStr(sInput);
+        if (commands.execute(sInput)) {
+            //
+        }
+        else {
+            cerr << "FAILED: Command not executed" << endl;
+        }
+    }
+
     return 0;
-}
+
+}//main()...
 
 

@@ -23,11 +23,6 @@ namespace ExamToyRobot {
 
     };
 
-    extern Point mapDirToVec[(int)EDir::_MAX];
-    extern string mapDirToStr[(int)EDir::_MAX];
-
-    extern unordered_map<string, EDir> mapKeyToDir;
-
     //---Commands:
     enum ECmd : int8_t {
         INVALID,
@@ -41,6 +36,17 @@ namespace ExamToyRobot {
         _MAX
     };
 
-    extern unordered_map<string, ECmd> mapKeyToCmd;
+    struct Const {
+
+        //---EDir conversions
+        static Point toVec(EDir eVal);
+        static string const& toStr(EDir eVal);
+        static EDir toEDir(string const& s);
+
+        //---ECmd conversions
+        static ECmd toECmd(string const& s);
+        static string const& toStr(ECmd eVal);
+
+    };
 
 }//namespace...
