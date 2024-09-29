@@ -131,6 +131,7 @@
     <ClCompile Include="ConstantsData.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Geometry.cpp" />
+    <ClCompile Include="MgrApp.cpp" />
     <ClCompile Include="Robot.cpp" />
     <ClCompile Include="TableTop.cpp" />
   </ItemGroup>
@@ -138,6 +139,7 @@
     <ClInclude Include="Commands.h" />
     <ClInclude Include="ConstantsData.h" />
     <ClInclude Include="Geometry.h" />
+    <ClInclude Include="MgrApp.h" />
     <ClInclude Include="Robot.h" />
     <ClInclude Include="TableTop.h" />
   </ItemGroup>

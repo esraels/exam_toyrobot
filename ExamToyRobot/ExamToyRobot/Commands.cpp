@@ -65,7 +65,9 @@ namespace Tools {
 
 	bool Commands::executeWithParams(string const& sKey, string const& sParams) {
 		if (m_listCmd.find(sKey) == m_listCmd.end()) return false;
-		return m_listCmd[sKey].apply(sParams);
+		auto bSuccess = m_listCmd[sKey].apply(sParams);
+		if (bSuccess) m_lastCmd = sKey;
+		return bSuccess;
 	}
 
 }//namespace...

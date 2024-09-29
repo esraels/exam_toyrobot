@@ -31,13 +31,24 @@ namespace Tools {
 	protected:
 		regex m_rxCmdKey;
 		map_t m_listCmd;
+		string m_lastCmd;   //desc: last command
 	public:
-		Commands(regex rx = regex(R"(\w+)", regex::icase)) {
+
+		Commands(regex const& rx = regex(R"(\w+)", regex::icase)) {
 			m_rxCmdKey = rx;
 		};
+		Commands(string const& rx, bool iCase = true) {
+			setCommandRegex(rx, iCase);
+		}
 
-		Commands(string rx = R"(\w+)", bool iCase = true) {
+		void setCommandRegex(string const& rx, bool iCase = true) {
 			m_rxCmdKey = iCase ? regex(rx, regex::icase) : regex(rx);
+		}
+		void setCommandRegex(regex const& rx) {
+			m_rxCmdKey = rx;
+		}
+		auto const& lastCmd() {
+			return m_lastCmd;
 		}
 
 		void add(string const& sKey, string const& rxParams, Cmd::func_t const& fnAction);
