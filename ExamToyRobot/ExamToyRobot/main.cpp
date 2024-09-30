@@ -1,8 +1,4 @@
-// ExamToyRobot.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #pragma once
-
 
 #include <iostream>
 #include <algorithm>
@@ -15,21 +11,14 @@
 #include "ConstantsData.h"
 #include "MgrApp.h"
 #include "Commands.h"
+#include "Utils.h"
 
-namespace ExamToyRobot {
-
-    using namespace std;
-
-    void toLowerStr(string& s) {
-        std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return std::tolower(c); });
-    }
-
-}//namespace...
 
 int main()
 {
     using namespace std;
     using namespace ExamToyRobot;
+    using namespace Tools;
 
     MgrApp app;
     app.table().setSize({5,5});
@@ -45,8 +34,7 @@ int main()
     auto const& sPlaceCmd = Const::toStr(ECmd::PLACE);
     while (true) {
         std::getline(cin, sInput);
-        toLowerStr(sInput);
-        if (commands.executeIfName(sPlaceCmd, sInput)) {
+        if (commands.executeIfName( sPlaceCmd, transformLower(sInput) )) {
             app.Start();
             break;
         } else {
@@ -54,17 +42,15 @@ int main()
         }
     }
 
+
+
     //---execute incoming commands.
     while (app.isRunning()) {
         std::getline(cin, sInput);
-        toLowerStr(sInput);
-         
-        bool bSuccess = commands.execute(sInput);
-
+        bool bSuccess = commands.execute( transformLower(sInput) );
         if (!bSuccess) {
             app.LogError("FAILED: Command not executed");
         }
-        
     }
 
     return 0;

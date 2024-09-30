@@ -31,25 +31,30 @@ namespace Tools {
 	protected:
 		regex m_rxCmdKey;
 		map_t m_listCmd;
-		string m_lastCmd;   //desc: last command
+		string m_lastCmd;
 	public:
-
-		Commands(regex const& rx = regex(R"(\w+)", regex::icase)) {
-			m_rxCmdKey = rx;
-		};
-		Commands(string const& rx, bool iCase = true) {
+		
+		Commands(string const& rx = R"(\w+)", bool iCase = true) {
 			setCommandRegex(rx, iCase);
 		}
 
+		/* setCommandRegex(rx,iCase)
+		*  rx - regex pattern to capture command and parameters.
+		*  if rx has no capture group:
+		*       whole match -> command-key
+		*       suffix -> parameters
+		*  if rx has 1 capture group:
+		*       group1 -> command key
+		*       suffix -> parameters
+		*  if rx has 2 capture groups:
+		*       group1 -> command key
+		*       group2 -> parameters
+		*/
 		void setCommandRegex(string const& rx, bool iCase = true) {
 			m_rxCmdKey = iCase ? regex(rx, regex::icase) : regex(rx);
 		}
-		void setCommandRegex(regex const& rx) {
-			m_rxCmdKey = rx;
-		}
-		auto const& lastCmd() {
-			return m_lastCmd;
-		}
+
+		auto const& lastCmd() { return m_lastCmd; }
 
 		void add(string const& sKey, string const& rxParams, Cmd::func_t const& fnAction);
 		void add(string const& sKey, Cmd::func_t const& fnAction);
@@ -57,9 +62,8 @@ namespace Tools {
 		void setList(map_t const& list);
 
 		bool execute(string const& sCommand);
-		bool executeWithParams(string const& sKey, string const& sParams);
 		bool executeIfName(string const& sKey, string const& sCommand);
-
+		bool executeWithParams(string const& sKey, string const& sParams);
 
 	};
 

@@ -134,6 +134,7 @@
     <ClCompile Include="MgrApp.cpp" />
     <ClCompile Include="Robot.cpp" />
     <ClCompile Include="TableTop.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Commands.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="MgrApp.h" />
     <ClInclude Include="Robot.h" />
     <ClInclude Include="TableTop.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

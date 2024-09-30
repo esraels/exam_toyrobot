@@ -23,9 +23,12 @@ namespace ExamToyRobot {
 
 	void MgrApp::setupCommands() {
         
-        m_commands.setCommandRegex(R"(^\s*(\w+)\s*)");
+        m_commands.setCommandRegex(R"(^\s*(\w+)\s*(.*))");
+        //m_commands.setCommandRegex(R"(^\s*([_\w\-]+)\s*(.*))");
 
-        m_commands.add( Const::toStr(ECmd::PLACE), R"((\d+)\s*,\s*(\d+)\s*,\s*(\w+)\s*)", [&](Cmd::params_t const& params) {
+        auto rxStrictlyNoParams = R"(^\s*$)";
+
+        m_commands.add( Const::toStr(ECmd::PLACE), R"(^(\d+)\s*,\s*(\d+)\s*,\s*(\w+)\s*$)", [&](Cmd::params_t const& params) {
             enum {
                 P_POSX,
                 P_POSY,
@@ -45,22 +48,20 @@ namespace ExamToyRobot {
 
             return true;
         });
-        m_commands.add( Const::toStr(ECmd::MOVE), [&](Cmd::params_t const& params) -> bool {
-
+        m_commands.add( Const::toStr(ECmd::MOVE), rxStrictlyNoParams, [&](Cmd::params_t const& params) -> bool {
             if (CheckError( !m_table.isValidPos(m_robot.getPosAhead()) , "Move not possible")) return false;
-
             m_robot.Move();
             return true;
         });
-        m_commands.add( Const::toStr(ECmd::LEFT), [&](Cmd::params_t const& params) -> bool {
+        m_commands.add( Const::toStr(ECmd::LEFT), rxStrictlyNoParams, [&](Cmd::params_t const& params) -> bool {
             m_robot.FaceLeft();
             return true;
         });
-        m_commands.add( Const::toStr(ECmd::RIGHT), [&](Cmd::params_t const& params) -> bool {
+        m_commands.add( Const::toStr(ECmd::RIGHT), rxStrictlyNoParams, [&](Cmd::params_t const& params) -> bool {
             m_robot.FaceRight();
             return true;
         });
-        m_commands.add( Const::toStr(ECmd::REPORT), [&](Cmd::params_t const& params) -> bool {
+        m_commands.add( Const::toStr(ECmd::REPORT), rxStrictlyNoParams, [&](Cmd::params_t const& params) -> bool {
             auto pos = m_robot.getPos();
             auto sFaceInfo = computeFacingInfo(m_robot.getDir());
             cout << "Output: " << pos.x << "," << pos.y << "," << sFaceInfo << endl;

@@ -101,7 +101,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;..\ExamToyRobot\x64\Debug\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>MgrApp.obj;Commands.obj;ConstantsData.obj;Geometry.obj;Robot.obj;TableTop.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MgrApp.obj;Commands.obj;ConstantsData.obj;Geometry.obj;Robot.obj;TableTop.obj;Utils.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

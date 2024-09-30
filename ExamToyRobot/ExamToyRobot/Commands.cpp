@@ -1,4 +1,5 @@
 #include "Commands.h"
+#include "Utils.h"
 
 namespace Tools {
 
@@ -51,23 +52,24 @@ namespace Tools {
 	}
 
 	bool Commands::executeIfName(string const& sKey, string const& sCommand) {
-		smatch result;
+		
+		m_lastCmd = "";
 
+		smatch result;
 		if (!regex_search(sCommand, result, m_rxCmdKey)) return false;
 
 		string sCmd = (result.length() > 1) ? result[1] : result[0];
 
 		if (!sKey.empty() && sCmd != sKey) return false;
 
-		string sParams = result.suffix();
+		string sParams = (result.length() > 2) ? result[2] : result.suffix();
 		return executeWithParams(sCmd, sParams);
 	}
 
 	bool Commands::executeWithParams(string const& sKey, string const& sParams) {
 		if (m_listCmd.find(sKey) == m_listCmd.end()) return false;
-		auto bSuccess = m_listCmd[sKey].apply(sParams);
-		if (bSuccess) m_lastCmd = sKey;
-		return bSuccess;
+		m_lastCmd = sKey;
+		return m_listCmd[sKey].apply(sParams);
 	}
 
 }//namespace...
