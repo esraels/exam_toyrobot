@@ -108,7 +108,7 @@ Using commands from file:
   - Logging the error messages to a file:
 
     ```
-    type commands_fileC.txt | %APP% --verbose 2> errors_fileC.log
+    type commands_fileC.txt | ExamToyRobot.exe --verbose 2> errors_fileC.log
     ```
 
 
