@@ -16,7 +16,7 @@ How to run the project in Visual Studio:
 3. Press the **Local Windows Debugger** button, or press `F5` to start running the app with a debugger.
 	![Start Debug button](/docs/images/screenshot_start_debug_btn.png)
 4. When the app is already running, you can now type commands.
-	![App with commands](/docs/images/screenshot_app_with_commands.png)
+
 
 ---
 
