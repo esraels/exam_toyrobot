@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include <string>
 #include <sstream>
+#include <unordered_map>
 #include <regex>
 #include <functional>
 
@@ -12,17 +13,28 @@
 #include "MgrApp.h"
 #include "Commands.h"
 #include "Utils.h"
+#include "AppArguments.h"
 
 
-int main()
+int main(int argc, char* argv[])
 {
     using namespace std;
     using namespace ExamToyRobot;
     using namespace Tools;
 
+    AppArguments appArgs;
+
+    appArgs.ProcessArgs(argc, argv);
+    auto const& flags = appArgs.flags();
+    
+    if (flags.bShowHelp) {
+        cout << appArgs.getHelpMessage();
+        return 0;
+    }
+
     MgrApp app;
     app.table().setSize({5,5});
-    app.enableLogError(false);
+    app.enableLogError(flags.bVerbose);
 
     auto& commands = app.commands();
 
@@ -42,10 +54,8 @@ int main()
         }
     }
 
-
-
     //---execute incoming commands.
-    while (app.isRunning()) {
+    while (app.isRunning() || flags.bNoEnd) {
         std::getline(cin, sInput);
         bool bSuccess = commands.execute( transformLower(sInput) );
         if (!bSuccess) {

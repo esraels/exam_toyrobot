@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AppArguments.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="ConstantsData.cpp" />
     <ClCompile Include="main.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AppArguments.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="ConstantsData.h" />
     <ClInclude Include="Geometry.h" />
