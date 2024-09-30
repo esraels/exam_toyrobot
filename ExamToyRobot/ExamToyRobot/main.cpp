@@ -22,8 +22,8 @@ int main(int argc, char* argv[])
     using namespace ExamToyRobot;
     using namespace Tools;
 
+    //---process and apply commandline arguments.
     AppArguments appArgs;
-
     appArgs.ProcessArgs(argc, argv);
     auto const& flags = appArgs.flags();
     
@@ -32,17 +32,22 @@ int main(int argc, char* argv[])
         return 0;
     }
 
+    //---setup main app logic.
     MgrApp app;
-    app.table().setSize({5,5});
-    app.enableLogError(flags.bVerbose);
-
     auto& commands = app.commands();
 
-    bool bExit = false;
 
-    string sInput;
+    //---apply settings from commandline arguments.
+    app.enableLogError(flags.bVerbose);
+
+    auto tableSize = app.table().getSize();
+    appArgs.updateTableSize(tableSize);  
+    app.table().setSize(tableSize);     
+
 
     //---wait for valid and successfully executed place command.
+    string sInput;
+
     auto const& sPlaceCmd = Const::toStr(ECmd::PLACE);
     while (true) {
         std::getline(cin, sInput);

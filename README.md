@@ -73,15 +73,15 @@ Commandline arguments:
 - In **command prompt**, go the path of the exe file and then type `ExamToyRobot.exe --help` to display the following:  
 
 ```
-ExamToyRobot.exe [--verbose|-v] [--noend] [--help|-h|-?]
-flags:                                                   
-  --verbose   :Show error messages.                      
+ExamToyRobot.exe [--verbose|-v] [--noend] [--help|-h|-?] [--table|-t]
+flags:                                                 
+  --verbose   :Show error messages.                        
+  --help      :Show help message.                     
+  --table:W,H :Change size of table.                  
   --noend     :App will not exit on 'report' command. 
-               Press Ctrl+c to exit.
-  --help      :Show help message.                        
-     -v       :Same as --verbose.                        
-     -h       :Same as --help.                           
-     -?       :Same as --help.                          
+                Press Ctrl+c to exit.                 
+     -v       :Same as --verbose.                     
+     -t:W,H   :Same as --table.                       
+     -h       :Same as --help.                        
+     -?       :Same as --help.                        
 ```
-
-
