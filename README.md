@@ -14,7 +14,10 @@ The very first command should be placing it to a valid position on the table bef
 
 Commands:
 ---------
-- **`PLACE X,Y,[NORTH|EAST|WEST|SOUTH]`**: 
+
+***Note**: the commands are case insensitive.*
+
+1. **`PLACE X,Y,[NORTH|EAST|WEST|SOUTH]`**: 
     - Place the robot at X,Y position facing North, East, West, or South. 
     - examples: `PLACE 2,3,EAST`, `PLACE 0,0,NORTH`, `PLACE 4,4,WEST`.
     - **Note**: Since the table is only 5x5, valid values for the X,Y must be 0 to 4 only. Count starts from 0. Any value beyond that will make the place command invalid and will be ignored.
@@ -23,16 +26,23 @@ Commands:
         - `PLACE 2,10,EAST`: Y position is greater than 4.
         - `PLACE 7,6,EAST`: both X,Y values are outside of the 5x5 table.
     
-- **`LEFT`**:
-- **`RIGHT`**:
-- **`MOVE`**:
-- **`REPORT`**:
+2. **`LEFT`**:  
+    - Rotate the robot 90 degrees to the left.
+    
+3. **`RIGHT`**:
+    - Rotate the robot 90 degrees to the right.
+    
+4. **`MOVE`**:
+    - Move the robot 1 unit forward in the direction where it is facing.
 
-    ***Note**: the commands are case insensitive.*
+5. **`REPORT`**:  
+    - Print the current position and face direction of the robot.
+    - example output: `Output: 1,2,EAST`
+    - **Note:** Entering this command will **EXIT** the program.
 
 ---
+
 > **Note:** The screenshots below are taken from Visual Studio 2022 (v17.7.4).
----
 
 How to run the project in Visual Studio:
 ----------------------------------------
@@ -56,18 +66,11 @@ How to run the Unit Test:
 3. Press the "**Run All Test**" button ![Run All Test](/docs/images/btn_run_all_test.png), or press `Ctrl+R,V`.  
 	![Test Explorer Screenshot](/docs/images/screenshot_test_explorer.png)
 
-
----
-
-Commands within the App:
--------------------------
-
-
 ---
 
 Commandline arguments:
 ---------------------
-- In **command prompt**, type `ExamToyRobot.exe --help` to display the following:  
+- In **command prompt**, go the path of the exe file and then type `ExamToyRobot.exe --help` to display the following:  
 
 ```
 ExamToyRobot.exe [--verbose|-v] [--noend] [--help|-h|-?]
