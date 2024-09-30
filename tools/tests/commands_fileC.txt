@@ -1,0 +1,31 @@
+move
+right
+report
+left
+move
+place 1,1,east
+move
+move
+right
+place 1,10,east
+place 1,1,east
+place 1,10,east
+place 1,10,east
+place 1,1,asdf
+place 1,1,asdf
+place 1,1,asdf
+place 1,1,asdf
+place 1,1,asdf
+place 1,1,asdf
+place 1,1,asdf
+place 1,1,asdf
+place 1,10,east
+place 1,10,east
+place 1,10,east
+place 1,10,east
+place 1,10,east
+move
+left
+left
+left
+report
