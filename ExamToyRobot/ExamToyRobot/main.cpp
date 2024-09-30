@@ -50,6 +50,12 @@ int main(int argc, char* argv[])
 
     auto const& sPlaceCmd = Const::toStr(ECmd::PLACE);
     while (true) {
+
+        if (std::cin.eof()) {
+            app.LogError("ERROR: Reached end of file without valid PLACE command.");
+            return 1;
+        }
+
         std::getline(std::cin, sInput);
         if (commands.executeIfName( sPlaceCmd, transformLower(sInput) )) {
             app.Start();
@@ -57,23 +63,23 @@ int main(int argc, char* argv[])
         } else {
             app.LogError(string("FAILED: Command not executed. Cmd:'") + sInput + "'");
         }
-        if (std::cin.eof()) {
-            app.LogError("ERROR: Reached end of file without valid PLACE command.");
-            return 1;
-        }
+        
     }
 
     //---execute incoming commands.
     while (app.isRunning() || flags.bNoEnd) {
+
+        if (std::cin.eof()) {
+            app.LogError("ERROR: Reached end of file without REPORT command.");
+            return 1;
+        }
+
         std::getline(std::cin, sInput);
         bool bSuccess = commands.execute( transformLower(sInput) );
         if (!bSuccess) {
             app.LogError(string("FAILED: Command not executed. Cmd:'") + sInput + "'");
         }
-        if (std::cin.eof()) {
-            app.LogError("ERROR: Reached end of file without REPORT command.");
-            return 1;
-        }
+        
     }
 
     return 0;

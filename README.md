@@ -85,3 +85,31 @@ flags:
      -h       :Same as --help.                        
      -?       :Same as --help.                        
 ```
+
+---
+
+Using commands from file:
+---------------------------  
+
+  - Open **command prompt**, go to path of the exe file, and enter the file with list of commands as input. The commandline format will be:  
+    
+    ```
+    C:\AppPath> ExamToyRobot.exe < commands.txt
+    ```
+
+  - Different ways to feed commands from file:
+
+    ```
+    ExamToyRobot.exe < commands_fileA.txt
+    more commands_fileB.txt | ExamToyRobot.exe
+    type commands_fileC.txt | ExamToyRobot.exe
+    ```
+
+  - Logging the error messages to a file:
+
+    ```
+    type commands_fileC.txt | %APP% --verbose 2> errors_fileC.log
+    ```
+
+
+
