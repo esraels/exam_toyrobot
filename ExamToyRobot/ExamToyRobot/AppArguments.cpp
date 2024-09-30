@@ -42,14 +42,15 @@ namespace ExamToyRobot {
         m_sHelp =  "------------ H E L P -------------- \n";
         m_sHelp += "ExamToyRobot.exe [--verbose|-v] [--noend] [--help|-h-?]";
         m_sHelp +=
-            "                                                         \n"
-            "flags:                                                   \n"
-            "  --verbose   :Show error messages.                      \n"
-            "  --noend     :App will not exit on 'report' command.    \n"
-            "  --help      :Show help message.                        \n"
-            "     -v       :Same as --verbose.                        \n"
-            "     -h       :Same as --help.                           \n"
-            "     -?       :Same as --help.                           \n";
+            "                                                      \n"
+            "flags:                                                \n"
+            "  --verbose   :Show error messages.                   \n"
+            "  --noend     :App will not exit on 'report' command. \n"
+            "                Press Ctrl+c to exit.                \n" 
+            "  --help      :Show help message.                     \n"
+            "     -v       :Same as --verbose.                     \n"
+            "     -h       :Same as --help.                        \n"
+            "     -?       :Same as --help.                        \n";
     }
 
 
