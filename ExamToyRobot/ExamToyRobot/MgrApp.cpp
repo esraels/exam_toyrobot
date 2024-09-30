@@ -70,6 +70,9 @@ namespace ExamToyRobot {
         });
 	}
 
+    //note: directions are computed instead of using lookup-table with EDir as index.
+    // This is to support more specific direction info such as south-east, north-west, 35degN->E, etc.
+    // in case the app is extended from integer position to float.
     const string& MgrApp::computeFacingInfo(Vec const& d) {
         EDir eDir = EDir::INVALID;
 

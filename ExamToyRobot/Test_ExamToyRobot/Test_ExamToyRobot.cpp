@@ -147,7 +147,7 @@ namespace TestExamToyRobot
 
 			struct {
 				const char* tn;   //test name
-				Point t;    //table size.
+				Point t;          //table size.
 				struct RobStat {
 					Point p;  //position
 					EDir d;   //direction
@@ -165,12 +165,16 @@ namespace TestExamToyRobot
 						   	   {{2,2},EDir::SOUTH }, {"move", "left", "move", "right", "move", "left", "left"}},
 				{ "m4", {5,5}, {{4,4},EDir::WEST  },
 						       {{2,2},EDir::SOUTH }, {"move", "left", "move", "right", "move", "place 4,4,west"}},
+				{ "m5", {5,5}, {{2,1},EDir::WEST  },
+							   {{0,0},EDir::NORTH}, {"place 1,1,east", "place 2,2,SOUTH", "move", "right", "move", "place 3,3,NORTH", "place 2,1,west"}},
 
 				//---rotations
 				{ "r1", {5,5}, {{3,3},EDir::EAST  },
 							   {{2,3},EDir::EAST  }, {"left", "left", "left", "left", "move"}},
 				{ "r2", {5,5}, {{2,4},EDir::NORTH },
 							   {{2,3},EDir::NORTH }, {"right", "right", "right", "right", "move"}},
+				{ "r3", {5,5}, {{1,3},EDir::NORTH },
+							   {{1,2},EDir::NORTH }, {"right", "left", "right", "left", "move"}},
 
 				//---out of the table.
 				{ "ot1", {5,5}, {{0,0},EDir::WEST  },
@@ -179,8 +183,8 @@ namespace TestExamToyRobot
 								{{0,0},EDir::SOUTH }, {"move", "move", "move", "right", "right", "move"}},
 				{ "ot3", {5,5}, {{4,4},EDir::NORTH },
 								{{3,3},EDir::EAST  }, {"move", "move", "move", "left", "move", "move", "move"}},
-
-				//todo: add more tests.
+				{ "ot4",{10,9}, {{9,7},EDir::NORTH },
+								{{5,5},EDir::EAST  }, {"move", "move", "move", "move", "move", "move", "move", "move", "left", "move", "move"}},
 			};
 
 			MgrApp app;
